@@ -1,0 +1,18 @@
+definitions:
+  ProductRequest:
+    type: object
+    required: [name, description, thumbnail, price]
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      thumbnail:
+        type: string
+      price:
+        type: number
+
+components:
+  schemas:
+    ProductRequest:
+      $ref: '#/definitions/ProductRequest'

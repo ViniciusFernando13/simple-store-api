@@ -1,0 +1,22 @@
+definitions:
+  ProductResponse:
+    type: object
+    required: [id, name, description, thumbnail, price, updated_at]
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+      description:
+        type: string
+      thumbnail:
+        type: string
+      price:
+        type: number
+      updated_at:
+        type: string
+
+components:
+  schemas:
+    ProductResponse:
+      $ref: '#/definitions/ProductResponse'
