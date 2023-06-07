@@ -1,0 +1,18 @@
+definitions:
+  ValidationResponse:
+    type: object
+    properties:
+      flashToSession:
+        type: boolean
+      messages:
+        type: object
+        properties:
+          errors:
+            type: array
+            items:
+              $ref: '#/definitions/ErrorValidation'
+
+components:
+  schemas:
+    ValidationResponse:
+      $ref: '#/definitions/ValidationResponse'

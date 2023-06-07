@@ -1,0 +1,114 @@
+/products:
+  get:
+    tags:
+      - Products
+    summary: List all products
+    produces:
+      - application/json
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/ProductResponse'
+  post:
+    tags:
+      - Products
+    summary: Store a product
+    produces:
+      - application/json
+    requestBody:
+      description: Product data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/ProductRequest'
+    responses:
+      201:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/ProductResponse'
+      400:
+        description: BAD REQUEST
+        content:
+          applictions/json:
+            schema:
+              $ref: '#/definitions/ValidationResponse'
+/products/{productId}:
+  get:
+    tags:
+      - Products
+    summary: Find product by your id
+    parameters:
+      - in: path
+        name: productId
+        required: true
+        schema:
+          type: integer
+        description: id to search a product
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/ProductResponse'
+      404:
+        description: NOT FOUND
+  put:
+    tags:
+      - Products
+    summary: Edit product by id
+    produces:
+      - application/json
+    parameters:
+      - in: path
+        name: productId
+        required: true
+        schema:
+          type: integer
+        description: Id to edit product
+    requestBody:
+      description: Product data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/ProductRequest'
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/ProductResponse'
+      400:
+        description: BAD REQUEST
+        content:
+          applictions/json:
+            schema:
+              $ref: '#/definitions/ValidationResponse'
+      404:
+        description: NOT FOUND
+  delete:
+    tags:
+      - Products
+    summary: Delete product by id
+    parameters:
+      - in: path
+        name: productId
+        required: true
+        schema:
+          type: integer
+        description: Id to delete product
+    responses:
+      200:
+        description: OK
+      404:
+        description: NOT FOUND
