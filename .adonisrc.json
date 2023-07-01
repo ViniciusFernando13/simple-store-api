@@ -23,7 +23,8 @@
     "@adonisjs/core",
     "@adonisjs/lucid",
     "@adonisjs/route-model-binding/build/providers/RmbProvider",
-    "adonis5-swagger"
+    "adonis5-swagger",
+    "@adonisjs/auth"
   ],
   "aceProviders": [
     "@adonisjs/repl"

@@ -1,0 +1,21 @@
+definitions:
+  UserRequest:
+    type: object
+    required: [name, birthdate, email, password, passwordConfirmation]
+    properties:
+      name:
+        type: string
+      birthdate:
+        type: string
+        example: 'yyyy-mm-dd'
+      email:
+        type: string
+      password:
+        type: string
+      passwordConfirmation:
+        type: string
+
+components:
+  schemas:
+    UserRequest:
+      $ref: '#/definitions/UserResponse'

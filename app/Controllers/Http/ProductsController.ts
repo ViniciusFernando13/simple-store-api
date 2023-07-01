@@ -11,8 +11,6 @@ const productSchema = schema.create({
 
 export default class ProductsController {
   public async index({ response }: HttpContextContract) {
-    console.log('a')
-
     return response.json(await Product.all())
   }
 

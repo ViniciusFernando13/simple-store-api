@@ -1,0 +1,22 @@
+definitions:
+  UserResponse:
+    type: object
+    required: [id, name, birthdate, email, updatedAt]
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+      birthdate:
+        type: string
+        example: 'yyyy-mm-dd'
+      email:
+        type: string
+      updatedAt:
+        type: string
+        example: 'yyyy-mm-ddTHH:MM:SS.mss-timezone'
+
+components:
+  schemas:
+    UserResponse:
+      $ref: '#/definitions/UserResponse'

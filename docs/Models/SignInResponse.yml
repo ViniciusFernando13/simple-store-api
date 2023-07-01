@@ -1,0 +1,14 @@
+definitions:
+  SignInResponse:
+    type: object
+    required: [email, password]
+    properties:
+      type:
+        type: string
+      token:
+        type: string
+
+components:
+  schemas:
+    SignInResponse:
+      $ref: '#/definitions/SignInResponse'
