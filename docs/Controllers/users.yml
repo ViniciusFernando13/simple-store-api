@@ -1,0 +1,80 @@
+/user:
+  post:
+    tags:
+      - Users
+    summary: Do sign up
+    produces:
+      - application/json
+    requestBody:
+      description: Sign up in the system
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/UserRequest'
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/UserResponse'
+  get:
+    tags:
+      - Users
+    summary: Get data by logged user
+    security:
+      - bearerAuth: []
+    produces:
+      - application/json
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/UserResponse'
+  put:
+    tags:
+      - Users
+    summary: Update data logged User
+    security:
+      - bearerAuth: []
+    produces:
+      - application/json
+    requestBody:
+      description: Sign up in the system
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/UserUpdateRequest'
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/UserResponse'
+
+/user/sign_in:
+  post:
+    tags:
+      - Users
+    summary: Do sign in with e-mail and password
+    produces:
+      - application/json
+    requestBody:
+      description: E-mail and Password to sign in
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/SignInRequest'
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/SignInResponse'
