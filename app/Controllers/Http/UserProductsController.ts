@@ -2,38 +2,41 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { productSchema } from 'App/Schemas/productSchema'
 import ProductsService from 'App/Services/ProductsService'
 
-export default class ProductsController {
+export default class UserProductsController {
   productService: ProductsService
+
   constructor() {
     this.productService = new ProductsService()
   }
-  public async index({ response }: HttpContextContract) {
-    return response.json(await this.productService.getAll())
-  }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
     try {
+      const user = auth.use('api').user
+      if (!!!user) return response.status(401)
       const data = await request.validate({ schema: productSchema })
-      const product = await this.productService.add(data)
+      const product = await this.productService.add({ ...data, user_id: user.id })
       return response.json(product)
     } catch (error) {
       return response.status(400).send(error)
     }
   }
 
-  public async show({ request, response }: HttpContextContract) {
+  public async show({ response, auth }: HttpContextContract) {
     try {
-      const product = await this.productService.getById(request.param('id'))
-      if (!product) return response.status(404)
-      return response.json(product)
+      const user = auth.use('api').user
+      if (!!!user) return response.status(401)
+      const products = await this.productService.getByUser(user.id)
+      return response.json(products)
     } catch (error) {
       return response.status(400).send(error)
     }
   }
 
-  public async update({ request, response }: HttpContextContract) {
+  public async update({ request, response, auth }: HttpContextContract) {
     try {
-      const product = await this.productService.getById(request.param('id'))
+      const user = auth.use('api').user
+      if (!!!user) return response.status(401)
+      const product = await this.productService.getByUserAndId(request.param('id'), user.id)[0]
       if (!product) return response.status(404)
       const data = await request.validate({ schema: productSchema })
       return response.json(await this.productService.update(product, data))
@@ -42,9 +45,11 @@ export default class ProductsController {
     }
   }
 
-  public async destroy({ request, response }: HttpContextContract) {
+  public async destroy({ request, response, auth }: HttpContextContract) {
     try {
-      const product = await this.productService.getById(request.param('id'))
+      const user = auth.use('api').user
+      if (!!!user) return response.status(401)
+      const product = await this.productService.getByUserAndId(request.param('id'), user.id)[0]
       if (!product) return response.status(404)
       this.productService.delete(product)
       return response.status(200)
